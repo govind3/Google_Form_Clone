@@ -74,13 +74,13 @@ function Questionform() {
     }
   }
 
-  // function copyQuestion(i) {
-  //   //expandCloseAll();
-  //   let qs = [...questions];
-  //   var newQuestion = { ...qs[i] };
+  function copyQuestion(i) {
+    //expandCloseAll();
+    let qs = [...questions];
+    var newQuestion = { ...qs[i] };
 
-  //   setQuestions([...questions, newQuestion]);
-  // }
+    setQuestions([...questions, newQuestion]);
+  }
 
   function deleteQuestion(i) {
     let qs = [...questions];
@@ -511,7 +511,7 @@ function Questionform() {
                                 data-placement="top"
                                 title={"Copy question"}
                                 onClick={() => {
-                                  // copyQuestion(i);
+                                  copyQuestion(i);
                                 }}
                               >
                                 <FilterNoneIcon />
