@@ -696,7 +696,7 @@ function Questionform() {
             </Droppable>
           </DragDropContext>
 
-          {/* <div className="save_form">
+          <div className="save_form">
             <Button
               variant="contained"
               color="primary"
@@ -705,7 +705,7 @@ function Questionform() {
             >
               Save
             </Button>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
