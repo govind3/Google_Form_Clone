@@ -31,7 +31,9 @@
 }
 
 .form_name:focus {
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid rgb(103, 58, 183);
+
+  background-color: #f4f4f9;
 }
 
 .form_header_right {

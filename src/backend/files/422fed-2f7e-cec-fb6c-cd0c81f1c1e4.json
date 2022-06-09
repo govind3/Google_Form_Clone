@@ -1,0 +1,35 @@
+{
+  "document_name": "Today Quiz for Math",
+  "doc_desc": "All the best.",
+  "questions": [
+    {
+      "questionText": "What is your name?",
+      "questionType": "radio",
+      "options": [
+        { "optionText": "Govind" },
+        { "optionText": "Krishna" },
+        { "optionText": "Rohit " },
+        { "optionText": "NA" }
+      ],
+      "points": "1",
+      "open": false,
+      "required": true,
+      "answer": false
+    },
+    {
+      "questionText": "Which is the capital city of Karnataka ?",
+      "questionType": "radio",
+      "options": [
+        { "optionText": "Bengaluru" },
+        { "optionText": "Kolkata" },
+        { "optionText": "Delhi" },
+        { "optionText": "Goa" }
+      ],
+      "answer": false,
+      "answerKey": "",
+      "open": true,
+      "required": true,
+      "points": "4"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import CropOriginalIcon from "@material-ui/icons/CropOriginal";
 import CloseIcon from "@material-ui/icons/Close";
@@ -31,6 +31,9 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import "./Question_form.css";
+import { useStateValue } from "./StateProvider";
+import { actionTypes } from "./reducer";
+import axios from "axios";
 
 function Questionform() {
   const [questions, setQuestions] = useState([
@@ -49,6 +52,39 @@ function Questionform() {
       required: false,
     },
   ]);
+
+  let { id } = useParams();
+  const [documentName, setDocName] = useState("Untitled Document");
+  const [documentDescription, setDocDesc] = useState("Add Description");
+  const [{}, dispatch] = useStateValue();
+
+  useEffect(() => {
+    async function data_adding() {
+      var request = await axios.get(`http://localhost:5000/data/${id}`);
+      let question_data = request.data.questions;
+      console.log(question_data);
+      let doc_name = request.data.document_name;
+      let doc_descip = request.data.doc_desc;
+      console.log(doc_name + " " + doc_descip);
+      setDocName(doc_name);
+      setDocDesc(doc_descip);
+      setQuestions(question_data);
+      dispatch({
+        type: actionTypes.SET_DOC_NAME,
+        doc_name: doc_name,
+      });
+
+      dispatch({
+        type: actionTypes.SET_DOC_DESC,
+        doc_desc: doc_descip,
+      });
+      dispatch({
+        type: actionTypes.SET_QUESTIONS,
+        questions: question_data,
+      });
+    }
+    data_adding();
+  }, [dispatch, id]);
 
   function addQuestionType(i, type) {
     let qs = [...questions];
@@ -209,6 +245,19 @@ function Questionform() {
     setQuestions(qs);
   }
 
+  function commitToDB() {
+    dispatch({
+      type: actionTypes.SET_QUESTIONS,
+      questions: questions,
+    });
+
+    axios.post(`http://localhost:5000/add_quetions/${id}`, {
+      document_name: documentName,
+      doc_desc: documentDescription,
+      questions: questions,
+    });
+  }
+
   function questionsUI() {
     return questions.map((ques, i) => (
       <Draggable key={i} draggableId={i + "id"} index={i}>
@@ -281,11 +330,12 @@ function Questionform() {
                                   <Typography
                                     style={{
                                       fontFamily: " Roboto,Arial,sans-serif",
-                                      fontSize: " 13px",
-                                      fontWeight: "400",
+                                      fontSize: " 15px",
+                                      fontWeight: "500",
                                       letterSpacing: ".2px",
                                       lineHeight: "20px",
-                                      color: "#202124",
+                                      color: "#333",
+                                      marginLeft: "5px",
                                     }}
                                   >
                                     {ques.options[j].optionText}
@@ -452,7 +502,7 @@ function Questionform() {
                                       className="text_input"
                                       style={{
                                         fontSize: "13px",
-                                        width: "60px",
+                                        width: "65px",
                                       }}
                                       placeholder="Add other"
                                     ></input>
@@ -509,6 +559,7 @@ function Questionform() {
                                 aria-label="Copy"
                                 data-toggle="tooltip"
                                 data-placement="top"
+                                style={{ color: "rgb(98, 91, 91)" }}
                                 title={"Copy question"}
                                 onClick={() => {
                                   copyQuestion(i);
@@ -520,6 +571,7 @@ function Questionform() {
                                 aria-label="delete"
                                 data-toggle="tooltip"
                                 data-placement="top"
+                                style={{ color: "rgb(98, 91, 91)" }}
                                 title={"Delete question"}
                                 onClick={() => {
                                   deleteQuestion(i);
@@ -529,10 +581,14 @@ function Questionform() {
                               </IconButton>
                               <div>
                                 <span
-                                  style={{ color: "#5f6368", fontSize: "13px" }}
+                                  style={{
+                                    color: "#333",
+                                    fontSize: "14px",
+                                    fontWeight: "600",
+                                  }}
                                 >
-                                  Required{" "}
-                                </span>{" "}
+                                  Required
+                                </span>
                                 <Switch
                                   name="checkedA"
                                   color="primary"
@@ -705,13 +761,19 @@ function Questionform() {
               <input
                 type="text"
                 className="question_form_top_name"
-                style={{ color: "black" }}
-                placeholder="Untitled document"
+                style={{ color: "black", marginBottom: "10px" }}
+                placeholder="Untitled Document"
+                onChange={(e) => {
+                  setDocName(e.target.value);
+                }}
               />
               <input
                 type="text"
                 className="question_form_top_desc"
                 placeholder="Form description"
+                onChange={(e) => {
+                  setDocDesc(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -731,7 +793,7 @@ function Questionform() {
             <Button
               variant="contained"
               color="primary"
-              //onClick={commitToDB}
+              onClick={commitToDB}
               style={{ fontSize: "14px" }}
             >
               Save

@@ -7,13 +7,23 @@ const useStyle = makeStyles({
   root: {
     flexGrow: 1,
   },
-  tab: {
-    fontSize: 12,
-    color: "#5f6368",
+  tab1: {
+    fontSize: 13.5,
+    color: "rgb(103, 58, 183)",
     textTransform: "capitalize",
     height: 10,
     fontWeight: "600",
-    fontFamily: "Google Sans, Roboto, Arial, sans-serif",
+    fontFamily: "Arial, sans-serif",
+    borderBottom: "4px solid rgb(103, 58, 183)",
+    borderRadius: "5px",
+  },
+  tab: {
+    fontSize: 15,
+    color: "#333",
+    textTransform: "capitalize",
+    height: 10,
+    fontWeight: "600",
+    fontFamily: "Serif",
   },
   tabs: {
     height: 10,
@@ -29,7 +39,7 @@ function Centeredtabs() {
         indicatorColor="primary"
         centered
       >
-        <Tab label="Questions" className={classes.tab}></Tab>
+        <Tab label="Questions" className={classes.tab1}></Tab>
         <Tab label="Responses" className={classes.tab}></Tab>
       </Tabs>
     </Paper>

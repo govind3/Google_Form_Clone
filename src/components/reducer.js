@@ -14,7 +14,7 @@ export const initialState = {
 };
 
 export const actionTypes = {
-  SET_QUESTIONs: "SET_QUESTIONS",
+  SET_QUESTIONS: "SET_QUESTIONS",
   CHANGE_TYPE: "CHANGE_TYPE",
   SET_DOC_NAME: "SET_DOC_NAME",
   SET_DOC_DESC: "SET_DOC_DESC",
@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) => {
   console.log(action);
 
   switch (action.type) {
-    case actionTypes.SET_QUESTIONs:
+    case actionTypes.SET_QUESTIONS:
       return {
         ...state,
         questions: action.questions,

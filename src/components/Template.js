@@ -10,15 +10,36 @@ import contact from "../images/3.PNG";
 import rsvp from "../images/4.PNG";
 import uuid from "react-uuid";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Template() {
   const navigate = useNavigate();
-  const createForm = () => {
+
+  function createForm() {
     const id = uuid();
     console.log(id);
 
+    let questions_list = [
+      {
+        questionText: "Question",
+        questionType: "radio",
+        answer: false,
+        answerText: " ",
+        points: 0,
+        options: [{ optionText: "Option 1" }],
+        open: true,
+        required: false,
+      },
+    ];
+
+    axios.post(`http://localhost:5000/add_quetions/${id}`, {
+      document_name: "untitled_form",
+      doc_desc: "Add Description",
+      questions: questions_list,
+    });
+
     navigate("/form/" + id);
-  };
+  }
 
   return (
     <div className="template_section">

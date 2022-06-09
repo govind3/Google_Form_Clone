@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Formheader from "./components/Formheader";
 import Centeredtabs from "./components/Centeredtabs";
 import Questionform from "./components/Questionform";
+import Userform from "./components/Userform";
+import SubmitForm from "./components/SubmitForm";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
               </>
             }
           />
+          <Route path="/response" element={<Userform />} />
+          <Route path="/submitted" element={<SubmitForm />} />
           <Route
             path="/form/:id"
             element={
